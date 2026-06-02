@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Agentic Turn — How Autonomous AI Is Rewiring Finance, Banking &amp; Payments</title>
+<meta name="description" content="A detailed field report on how agentic AI is transforming finance, banking and payments — the benefits in efficiency, customer experience, fraud detection and decision-making, and the threats in cybersecurity, regulation, privacy, bias and operational dependency." />
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4EEE1;
+    --paper-2:#ECE3D2;
+    --paper-3:#E4D9C4;
+    --ink:#17120C;
+    --ink-soft:#463D31;
+    --muted:#6E6353;
+    --rust:#BE4626;
+    --rust-deep:#9A3417;
+    --pine:#1E4A3B;
+    --pine-soft:#2C6450;
+    --gold:#A9802F;
+    --dark:#161109;
+    --dark-2:#1F1810;
+    --dark-line:rgba(244,238,225,0.16);
+    --line:rgba(23,18,12,0.16);
+    --line-soft:rgba(23,18,12,0.09);
+    --serif:"Newsreader",Georgia,'Times New Roman',serif;
+    --display:"Fraunces",Georgia,serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+    --maxw:1180px;
+    --readw:720px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-optical-sizing:auto;
+    font-size:clamp(1.04rem,0.97rem + 0.32vw,1.2rem);
+    line-height:1.66;
+    font-weight:380;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+
+  /* paper grain */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    pointer-events:none;z-index:9;
+    opacity:0.05;
+    mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  ::selection{background:var(--rust);color:var(--paper);}
+
+  a{color:inherit;}
+
+  /* ---------- reading progress ---------- */
+  #progress{
+    position:fixed;top:0;left:0;height:3px;width:0%;
+    background:linear-gradient(90deg,var(--rust),var(--gold));
+    z-index:60;transition:width .08s linear;
+  }
+
+  /* ---------- ticker ---------- */
+  .ticker{
+    position:sticky;top:0;z-index:50;
+    background:var(--ink);color:var(--paper);
+    border-bottom:1px solid var(--dark-line);
+    overflow:hidden;white-space:nowrap;
+    font-family:var(--mono);font-size:.7rem;
+    letter-spacing:.13em;text-transform:uppercase;
+  }
+  .ticker-track{
+    display:inline-block;padding:.62rem 0;
+    animation:scroll-x 46s linear infinite;
+    will-change:transform;
+  }
+  .ticker:hover .ticker-track{animation-play-state:paused;}
+  .ticker-track span{padding:0 1.5rem;}
+  .ticker-track b{color:var(--gold);font-weight:600;}
+  .ticker-track .dot{color:var(--rust);}
+  @keyframes scroll-x{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ---------- layout ---------- */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(1.2rem,4vw,3rem);}
+  .read{max-width:var(--readw);margin-left:auto;margin-right:auto;}
+
+  .kicker{
+    font-family:var(--mono);font-size:.72rem;font-weight:500;
+    letter-spacing:.26em;text-transform:uppercase;color:var(--rust);
+    display:flex;align-items:center;gap:.7rem;
+  }
+  .kicker::before{content:"";width:26px;height:1px;background:var(--rust);display:inline-block;}
+
+  .rule{height:1px;background:var(--line);border:0;margin:0;}
+  .rule-thick{height:3px;background:var(--ink);border:0;margin:0;}
+
+  /* ---------- masthead ---------- */
+  .nameplate{
+    border-bottom:1px solid var(--line);
+    padding:1.1rem 0 .9rem;
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--ink-soft);
+  }
+  .nameplate .mark{
+    display:flex;align-items:center;gap:.6rem;color:var(--ink);font-weight:600;
+  }
+  .nameplate .glyph{
+    width:24px;height:24px;border:1.5px solid var(--ink);border-radius:50%;
+    display:grid;place-items:center;font-family:var(--display);font-size:.8rem;
+    font-weight:600;font-style:italic;
+  }
+  .nameplate .right{opacity:.7;}
+  @media(max-width:620px){.nameplate .right{display:none;}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:clamp(3.4rem,7vw,6.2rem) 0 clamp(2.4rem,4vw,3.4rem);position:relative;}
+  .hero .meta-top{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;align-items:center;justify-content:space-between;}
+  .hero h1{
+    font-family:var(--display);
+    font-optical-sizing:auto;
+    font-weight:560;
+    font-size:clamp(2.7rem,2rem + 5.2vw,6.1rem);
+    line-height:.96;
+    letter-spacing:-.02em;
+    margin:1.6rem 0 0;
+    max-width:14ch;
+  }
+  .hero h1 em{font-style:italic;color:var(--rust);font-weight:480;}
+  .hero .deck{
+    font-family:var(--serif);
+    font-size:clamp(1.22rem,1.05rem + .7vw,1.62rem);
+    line-height:1.5;font-weight:340;color:var(--ink-soft);
+    max-width:46ch;margin:1.7rem 0 0;
+  }
+  .byline{
+    margin-top:2.3rem;padding-top:1.1rem;border-top:1px solid var(--line);
+    display:flex;flex-wrap:wrap;gap:.5rem 2rem;
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .byline b{color:var(--ink);font-weight:600;}
+
+  /* staggered entrance */
+  .js .enter{opacity:0;transform:translateY(22px);}
+  .enter-go{animation:enter .9s cubic-bezier(.2,.7,.2,1) forwards;}
+  @keyframes enter{to{opacity:1;transform:none;}}
+
+  /* ---------- section scaffolding ---------- */
+  section{padding:clamp(3.2rem,6vw,5.4rem) 0;}
+  .sec-head{margin-bottom:2.2rem;}
+  .sec-num{
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.24em;
+    color:var(--rust);text-transform:uppercase;display:block;margin-bottom:1rem;
+  }
+  .sec-head h2{
+    font-family:var(--display);font-weight:520;
+    font-size:clamp(1.9rem,1.4rem + 2.4vw,3.3rem);
+    line-height:1.02;letter-spacing:-.015em;margin:0;max-width:18ch;
+  }
+  .sec-head h2 em{font-style:italic;color:var(--pine);}
+
+  h3{
+    font-family:var(--display);font-weight:540;font-optical-sizing:auto;
+    font-size:clamp(1.3rem,1.1rem + .9vw,1.78rem);
+    line-height:1.12;letter-spacing:-.01em;margin:2.6rem 0 .7rem;
+  }
+  h3 .tag{
+    display:block;font-family:var(--mono);font-size:.68rem;font-weight:500;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.55rem;
+  }
+  p{margin:0 0 1.15rem;}
+  .lead-p{font-size:1.12em;color:var(--ink);font-weight:360;}
+  strong{font-weight:600;color:var(--ink);}
+  .read a{
+    color:var(--rust-deep);text-decoration:none;
+    border-bottom:1px solid rgba(154,52,23,.3);
+    transition:border-color .25s,background .25s;
+  }
+  .read a:hover{border-color:var(--rust-deep);background:rgba(190,70,38,.08);}
+
+  /* drop cap */
+  .dropcap::first-letter{
+    font-family:var(--display);font-weight:600;font-style:italic;
+    float:left;font-size:4.6rem;line-height:.78;padding:.32rem .55rem 0 0;color:var(--rust);
+  }
+
+  /* ---------- stat cards ---------- */
+  .stat-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:1px;background:var(--line);border:1px solid var(--line);margin:2.4rem 0;
+  }
+  .stat{background:var(--paper);padding:1.7rem 1.5rem;}
+  .stat .n{
+    font-family:var(--display);font-weight:560;
+    font-size:clamp(2.2rem,1.6rem + 2.2vw,3.2rem);line-height:1;
+    letter-spacing:-.02em;color:var(--ink);display:block;
+  }
+  .stat .n .sm{font-size:.5em;color:var(--rust);font-style:italic;}
+  .stat .l{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;
+    line-height:1.45;color:var(--ink-soft);margin-top:.7rem;text-transform:none;
+  }
+  .stat .src{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-top:.6rem;}
+
+  /* ---------- benefit cards ---------- */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.4rem;margin:2.2rem 0 1rem;}
+  .card{
+    background:var(--paper-2);border:1px solid var(--line);
+    padding:1.8rem 1.6rem 1.7rem;position:relative;overflow:hidden;
+    transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;
+  }
+  .card::before{
+    content:attr(data-n);position:absolute;top:.7rem;right:1rem;
+    font-family:var(--display);font-style:italic;font-weight:600;
+    font-size:3rem;color:var(--paper-3);line-height:1;z-index:0;
+  }
+  .card:hover{transform:translateY(-5px);box-shadow:-10px 14px 0 -4px var(--ink);}
+  .card h4{
+    position:relative;z-index:1;margin:.2rem 0 .7rem;
+    font-family:var(--display);font-weight:560;font-size:1.32rem;line-height:1.1;letter-spacing:-.01em;
+  }
+  .card p{position:relative;z-index:1;font-size:.98rem;line-height:1.6;color:var(--ink-soft);margin:0;}
+  .card .ico{
+    width:34px;height:34px;margin-bottom:1rem;color:var(--rust);position:relative;z-index:1;
+  }
+  .card .ico svg{width:100%;height:100%;}
+
+  /* ---------- pull quote ---------- */
+  .pull{
+    margin:3rem auto;max-width:860px;text-align:center;padding:0 1rem;
+  }
+  .pull q{
+    font-family:var(--display);font-weight:380;font-style:italic;font-optical-sizing:auto;
+    font-size:clamp(1.5rem,1.2rem + 1.8vw,2.5rem);
+    line-height:1.22;letter-spacing:-.01em;quotes:none;display:block;
+  }
+  .pull q b{color:var(--rust);font-weight:560;font-style:normal;}
+  .pull .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:1.4rem;}
+
+  /* ---------- numbers band ---------- */
+  .band{background:var(--pine);color:var(--paper);position:relative;}
+  .band .wrap{padding-top:clamp(3rem,5vw,4.4rem);padding-bottom:clamp(3rem,5vw,4.4rem);}
+  .band .kicker{color:#9CCBB6;}
+  .band .kicker::before{background:#9CCBB6;}
+  .band h2{font-family:var(--display);font-weight:520;font-size:clamp(1.7rem,1.3rem + 1.8vw,2.7rem);line-height:1.05;margin:1.1rem 0 0;letter-spacing:-.015em;max-width:20ch;}
+  .band-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem 1.4rem;margin-top:2.6rem;}
+  .band-grid .n{font-family:var(--display);font-weight:560;font-size:clamp(2.4rem,1.8rem + 2.4vw,3.6rem);line-height:.95;letter-spacing:-.02em;}
+  .band-grid .n .sm{font-size:.46em;font-style:italic;color:#E7C46A;}
+  .band-grid .l{font-family:var(--mono);font-size:.72rem;line-height:1.5;color:#CFE0D6;margin-top:.8rem;}
+
+  /* ---------- dark risks section ---------- */
+  .dark-zone{background:var(--dark);color:var(--paper);position:relative;}
+  .dark-zone::after{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background:radial-gradient(120% 80% at 80% -10%,rgba(190,70,38,.18),transparent 60%),
+               radial-gradient(90% 60% at 0% 110%,rgba(30,74,59,.3),transparent 55%);
+  }
+  .dark-zone .wrap{position:relative;z-index:1;}
+  .dark-zone .sec-num{color:#E58A6B;}
+  .dark-zone .sec-head h2{color:var(--paper);}
+  .dark-zone .sec-head h2 em{color:#E58A6B;}
+  .dark-zone h3{color:var(--paper);}
+  .dark-zone h3 .tag{color:#9a8d79;}
+  .dark-zone p{color:#D8CEBE;}
+  .dark-zone strong{color:#fff;}
+  .dark-zone .read a{color:#F0A688;border-bottom-color:rgba(240,166,136,.35);}
+  .dark-zone .read a:hover{background:rgba(240,166,136,.12);border-color:#F0A688;}
+  .dark-zone .rule{background:var(--dark-line);}
+  .dark-zone .dropcap::first-letter{color:#E58A6B;}
+
+  .threat-list{margin:2.4rem 0 0;border-top:1px solid var(--dark-line);}
+  .threat{
+    padding:1.9rem 0;border-bottom:1px solid var(--dark-line);
+    display:grid;grid-template-columns:auto 1fr;gap:1.4rem 1.8rem;align-items:start;
+  }
+  .threat .idx{
+    font-family:var(--mono);font-size:.82rem;font-weight:600;letter-spacing:.1em;
+    color:#E58A6B;border:1px solid rgba(229,138,107,.4);border-radius:50%;
+    width:44px;height:44px;display:grid;place-items:center;
+  }
+  .threat h3{margin:0 0 .55rem;}
+  .threat p{margin:0;font-size:1rem;}
+  @media(max-width:560px){
+    .threat{grid-template-columns:1fr;gap:.9rem;}
+    .threat .idx{width:38px;height:38px;font-size:.74rem;}
+  }
+
+  .severity{
+    display:inline-flex;align-items:center;gap:.55rem;margin-bottom:.7rem;
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:#bfae97;
+  }
+  .bars{display:inline-flex;gap:3px;}
+  .bars i{width:7px;height:11px;background:rgba(244,238,225,.18);display:inline-block;}
+  .bars i.on{background:#E58A6B;}
+
+  /* ---------- callout ---------- */
+  .callout{
+    border-left:3px solid var(--rust);background:var(--paper-2);
+    padding:1.3rem 1.5rem;margin:2rem 0;font-size:1rem;line-height:1.55;
+  }
+  .callout .ct{font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rust);display:block;margin-bottom:.55rem;}
+  .dark-zone .callout{background:var(--dark-2);border-left-color:#E58A6B;}
+  .dark-zone .callout .ct{color:#E58A6B;}
+  .dark-zone .callout{color:#D8CEBE;}
+
+  /* ---------- governance checklist ---------- */
+  .checklist{list-style:none;padding:0;margin:2rem 0;}
+  .checklist li{
+    display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;
+    padding:1.1rem 0;border-bottom:1px solid var(--line-soft);
+  }
+  .checklist li .mk{
+    font-family:var(--mono);font-weight:600;color:var(--pine);font-size:.95rem;
+    width:30px;flex:none;
+  }
+  .checklist li b{display:block;font-family:var(--display);font-weight:560;font-size:1.12rem;margin-bottom:.2rem;letter-spacing:-.01em;}
+  .checklist li span{color:var(--ink-soft);font-size:.98rem;line-height:1.55;}
+
+  /* ---------- sources ---------- */
+  .sources{background:var(--paper-2);border-top:1px solid var(--line);}
+  .src-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.2rem 2rem;margin-top:1.8rem;}
+  .src-grid a{
+    display:block;padding:.85rem 0;border-bottom:1px solid var(--line-soft);
+    text-decoration:none;font-size:.92rem;color:var(--ink);
+    transition:color .2s,padding-left .2s;
+  }
+  .src-grid a:hover{color:var(--rust-deep);padding-left:.5rem;}
+  .src-grid a b{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.25rem;}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--ink);color:var(--paper);padding:clamp(3rem,5vw,4.5rem) 0 2.5rem;}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:2rem;justify-content:space-between;align-items:flex-start;}
+  footer .col h5{font-family:var(--display);font-weight:560;font-size:1.5rem;margin:0 0 .5rem;letter-spacing:-.01em;}
+  footer p{color:#bcae9a;font-size:.92rem;max-width:42ch;margin:0;line-height:1.55;}
+  footer .meta{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#7d7160;line-height:2;}
+  footer a{color:#E58A6B;text-decoration:none;}
+  footer .disc{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--dark-line);font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;color:#7d7160;line-height:1.7;}
+
+  /* reveal on scroll */
+  .js .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);}
+  .js .reveal.in{opacity:1;transform:none;}
+
+  @media(max-width:560px){
+    .dropcap::first-letter{font-size:3.6rem;}
+    .byline{gap:.4rem 1.2rem;}
+  }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<!-- ticker -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tt">
+    <span><span class="dot">●</span> AGENTIC AI / FINANCIAL SERVICES</span>
+    <span>PROJECTED 2026 SPEND <b>~$50B</b></span>
+    <span>FINANCE-TEAM ADOPTION <b>&lt;7% → 44%</b> IN A YEAR</span>
+    <span>MCKINSEY: AGENTIC ≈ <b>⅓ OF $15T</b> BANKING AI VALUE</span>
+    <span>EU AI ACT HIGH-RISK RULES <b>▸ 2 AUG 2026</b></span>
+    <span>AML CASE WORK <b>DAYS → MINUTES</b></span>
+    <span>REAL-TIME PAYMENTS <b>~195B</b> TXNS / YR</span>
+    <span>NON-HUMAN IDENTITIES OUTNUMBER HUMANS <b>50:1</b></span>
+    <span>SHADOW-AI BREACH AVG <b>$4.63M</b></span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- nameplate -->
+  <div class="nameplate">
+    <div class="mark"><span class="glyph">A</span> THE AGENTIC LEDGER</div>
+    <div class="right">Field Report · Vol. 01 · Financial Systems</div>
+  </div>
+
+  <!-- hero -->
+  <header class="hero">
+    <div class="meta-top">
+      <div class="kicker enter" style="animation-delay:.05s">Fintech &middot; Industry Analysis</div>
+      <div class="kicker enter" style="animation-delay:.1s;color:var(--pine)">Benefits &amp; Risks</div>
+    </div>
+    <h1 class="enter" style="animation-delay:.16s">The Agentic Turn in <em>Money</em>.</h1>
+    <p class="deck enter" style="animation-delay:.32s">Autonomous AI has crossed from chatbot to colleague — reasoning, planning and <em>acting</em> across the core machinery of banks, markets and payments. This is what it is buying institutions, and what it is quietly putting at risk.</p>
+    <div class="byline enter" style="animation-delay:.46s">
+      <span>By <b>The Agentic Ledger</b></span>
+      <span>June 2026</span>
+      <span>≈ 18 min read</span>
+      <span>Finance · Banking · Payments</span>
+    </div>
+  </header>
+</div>
+
+<hr class="rule-thick">
+
+<!-- INTRO -->
+<section>
+  <div class="wrap">
+    <div class="read">
+      <p class="lead-p dropcap reveal">For a decade, "AI in banking" mostly meant prediction: a model scored a risk, ranked a lead, or flagged a transaction, and a human did the rest. Agentic AI breaks that pattern. An agent does not merely advise — it pursues a goal across multiple steps, calls tools and systems, makes intermediate decisions, and acts with limited supervision. In a sector that is data-rich, process-heavy, expensive to staff and intensely regulated, that shift lands harder than almost anywhere else.</p>
+
+      <p class="reveal">The numbers describing the move are unusually steep. By one widely cited industry tally, fewer than 7% of finance teams had deployed any agentic AI in early 2025; a year later that figure sat near 44% — roughly a sixfold jump — with global spending on agentic AI in financial services projected to approach <strong>$50 billion</strong> by the end of 2026. McKinsey frames the prize even more dramatically, estimating that AI could put around <strong>$15 trillion</strong> of value in play across banking over the next decade, with agentic systems expected to deliver close to a third of it.</p>
+
+      <p class="reveal">But the same property that makes an agent valuable — autonomy — is also what makes it dangerous. A system that can move money, open accounts, escalate privileges or rewrite a workflow on its own is a productivity multiplier and an attack surface in the same package. This report holds both truths at once: first the value, then the exposure, then what disciplined institutions are doing to keep the two in balance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATE OF PLAY -->
+<section style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">§ 01 — The State of Play</span>
+      <h2>From <em>pilot</em> to plumbing, in a single cycle.</h2>
+    </div>
+    <div class="read">
+      <p class="reveal">Most large banks spent 2024 and early 2025 experimenting. 2026 is the year the experiment is being wired into the core. Lloyds Banking Group has openly called it "the year of agentic AI," moving from pilots to enterprise-wide deployment across customer interactions, operations, colleague tooling and engineering. The reason banks are singled out as prime beneficiaries is structural: McKinsey estimates that 50–60% of full-time staff at a typical bank are tied in some way to service operations — exactly the kind of multi-step, judgment-laden work that earlier automation could never fully absorb.</p>
+
+      <p class="reveal">That last point matters. Robotic process automation (RPA) promised similar gains a decade ago and frequently disappointed — by some estimates, a large share of RPA programs failed to deliver expected returns because scripted bots shatter the moment a process deviates. Agentic systems are pitched as the answer precisely <em>because</em> they handle exceptions: the discrepancy, the edge case, the one-off analysis that used to bounce to a human queue.</p>
+    </div>
+
+    <div class="stat-grid reveal">
+      <div class="stat">
+        <span class="n">~$50<span class="sm">B</span></span>
+        <div class="l">Projected global spend on agentic AI in financial services by end-2026</div>
+        <div class="src">Industry estimate</div>
+      </div>
+      <div class="stat">
+        <span class="n">44<span class="sm">%</span></span>
+        <div class="l">Finance teams using agentic AI in Q1 2026, up from under 7% a year earlier</div>
+        <div class="src">Industry estimate</div>
+      </div>
+      <div class="stat">
+        <span class="n">50–60<span class="sm">%</span></span>
+        <div class="l">Share of a typical bank's workforce tied to service operations — the prime target zone</div>
+        <div class="src">McKinsey</div>
+      </div>
+      <div class="stat">
+        <span class="n">$170<span class="sm">B</span></span>
+        <div class="l">Global banking profit McKinsey estimates is at risk for institutions that fail to adapt</div>
+        <div class="src">McKinsey</div>
+      </div>
+    </div>
+    <div class="read">
+      <p class="reveal" style="margin-bottom:0;">The competitive framing is blunt. McKinsey describes "breakaway" banks scaling AI at roughly double the pace of the average institution, and warns of "pilot purgatory" for those that demonstrate but never deploy. The institutions building agentic infrastructure now are accumulating an operational lead that compounds week over week — not because the technology is magic, but because every cycle of real production teaches them something their competitors haven't learned yet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">§ 02 — Where the Value Lands</span>
+      <h2>Four places the gains are <em>real</em>, not theoretical.</h2>
+    </div>
+
+    <div class="read">
+      <h3 class="reveal"><span class="tag">02.1 — Operational Efficiency</span>The back office, finally automated end-to-end</h3>
+      <p class="reveal">This is the clearest win. Between 60% and 70% of banking employee time has historically gone to internal coordination and data shuffling rather than customer-facing work. Agentic systems collapse that overhead by owning entire workflows instead of single steps. In compliance domains such as KYC and AML, McKinsey reports productivity gains ranging from a few-fold to dramatic — automating complete reviews rather than assisting a human through them. Case studies cite loan-processing times cut by half with transaction success rates around 90%, and credit-memo preparation accelerated 20–60% with roughly 30% faster decisioning when multiple specialised agents gather data, pull signals and draft assessments in parallel.</p>
+      <p class="reveal">The headline that captures the scale: FIS, working with Anthropic, has built a Financial Crimes AI Agent designed to compress AML alert and case investigations <strong>from days to minutes</strong> while cutting false positives — with institutions including BMO and Amalgamated Bank among the first to deploy ahead of broader availability in the second half of 2026.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card reveal" data-n="A">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="M7 14l3-4 3 2 4-6"/></svg></div>
+        <h4>Cost-to-serve falls</h4>
+        <p>In a moderate-adoption scenario, McKinsey estimates banks could reshape functions for 15–20% cost reductions — with the first wins typically in customer servicing.</p>
+      </div>
+      <div class="card reveal" data-n="B">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h4>Days become minutes</h4>
+        <p>Multi-agent investigation pipelines turn AML case work and reconciliations from multi-day backlogs into near-real-time throughput.</p>
+      </div>
+      <div class="card reveal" data-n="C">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h10M4 17h7"/></svg></div>
+        <h4>Capacity without headcount</h4>
+        <p>One regional bank reported supporting 2.6M+ customer sessions and 5M+ interactions across voice and digital channels without adding agents.</p>
+      </div>
+    </div>
+
+    <div class="read">
+      <h3 class="reveal"><span class="tag">02.2 — Customer Experience</span>From answering questions to taking action</h3>
+      <p class="reveal">The interface to a bank is changing shape. Instead of a chatbot that explains how to do something, an agent can understand a customer's full financial footprint, give contextual guidance, and complete the task — filling the form, moving the balance, comparing the products. Done well, this makes financial guidance genuinely personal and, crucially, available around the clock. The deeper strategic shift is that customers are increasingly bringing <em>their own</em> agents: McKinsey notes consumers already using AI to find higher-yield savings, refinance debt, pay down balances more efficiently and switch products — which is precisely why incumbents are racing to own that relationship rather than be disintermediated by it.</p>
+
+      <h3 class="reveal"><span class="tag">02.3 — Fraud Detection &amp; Financial Crime</span>Catching theft inside a ten-second window</h3>
+      <p class="reveal">Real-time payments — now well above 195 billion transactions a year globally, many settling in under ten seconds — leave almost no room for human review. Rule-based systems that took hours to flag suspicious activity are simply too slow. Agentic fraud detection runs as a team of specialised agents: one watching transaction flows, another modelling user behaviour, a third correlating signals, all adapting their thresholds as tactics evolve and intervening in milliseconds. The card networks have industrialised this: Visa scores account-to-account payments in real time to auto-approve, decline or flag; Stripe's Radar evaluates transactions and autonomously intervenes on risk; and by one industry summary roughly 87% of financial institutions now run some form of AI- or ML-driven fraud detection.</p>
+
+      <h3 class="reveal"><span class="tag">02.4 — Decision-Making, Credit &amp; Advisory</span>Embedding policy directly into the workflow</h3>
+      <p class="reveal">Agents are starting to carry the institution's own rules with them. Picture a loan application: one agent evaluates income, bureau data, debt ratios and collateral; a second simultaneously checks the file against internal lending policy, capital buffers, sector-exposure limits and affordability rules. If it sits inside the guardrails, it advances automatically; if it breaches one, the agent names the exact constraint and hands a structured summary to an underwriter. The same pattern is reshaping wealth management — hyper-automation in the back office paired with deep personalisation in client advice — and even reshaping markets, where multi-agent systems are being applied to trading, risk management and portfolio work.</p>
+    </div>
+
+    <div class="callout reveal">
+      <span class="ct">The economic logic</span>
+      KPMG's modelling, drawn from research across more than 17 million firms, projects agentic AI could add roughly <strong>$3 trillion</strong> in corporate productivity and a 5.4% EBITDA improvement for the average company — with organisations achieving an average 2.3× return on agentic investments within about 13 months. In payments specifically, the IMF describes agentic systems as "digital factories" of AI agents that lower transaction and operational costs, improve liquidity and reduce fraud by stripping out human latency and administrative friction.
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<div class="pull reveal">
+  <q>The property that makes an agent valuable — <b>autonomy</b> — is the same property that makes it dangerous.</q>
+  <div class="by">The central tension of agentic finance</div>
+</div>
+
+<!-- NUMBERS BAND -->
+<section class="band">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">By the Numbers</div>
+      <h2>The upside, quantified — and the exposure that travels with it.</h2>
+    </div>
+    <div class="band-grid reveal">
+      <div>
+        <div class="n">~⅓</div>
+        <div class="l">Of an estimated $15T banking-AI value that agentic systems are expected to deliver this decade (McKinsey)</div>
+      </div>
+      <div>
+        <div class="n">2.3<span class="sm">×</span></div>
+        <div class="l">Average return on agentic AI investment within ~13 months (KPMG)</div>
+      </div>
+      <div>
+        <div class="n">87<span class="sm">%</span></div>
+        <div class="l">Of financial institutions now running AI/ML-driven fraud detection (industry summary)</div>
+      </div>
+      <div>
+        <div class="n">48<span class="sm">%</span></div>
+        <div class="l">Of security professionals who name agentic AI the single most dangerous attack vector (Dark Reading poll)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RISKS (DARK) -->
+<section class="dark-zone">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">§ 03 — The Other Ledger</span>
+      <h2>Every autonomous gain opens a new <em>liability</em>.</h2>
+    </div>
+    <div class="read">
+      <p class="lead-p dropcap reveal">An agent with real authority is, from a security standpoint, an insider that never sleeps. It can act faster than any human team can respond, and — improperly configured — it holds keys to systems that a traditional breach would take weeks to reach. The risk profile of agentic finance is therefore not a longer version of the old one. It is structurally different, and it spans five fronts.</p>
+    </div>
+
+    <div class="threat-list">
+
+      <div class="threat reveal">
+        <div class="idx">01</div>
+        <div>
+          <div class="severity"><span>Severity</span><span class="bars"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+          <h3>Cybersecurity &amp; the autonomous-insider problem</h3>
+          <p>Agents introduce attack classes that have no real precedent in conventional software: <strong>prompt injection</strong> (malicious instructions hidden in an email, document or web page the agent ingests), <strong>memory poisoning</strong> (false instructions planted in long-term memory that resurface days later), tool misuse and privilege escalation, cascading multi-agent failures, and supply-chain compromise. The OWASP Top 10 for Agentic Applications (2026) now codifies these as standard categories, and the "lethal trifecta" framework warns of the danger zone where sensitive-data access, exposure to untrusted content, and the ability to communicate externally all combine in one agent.</p>
+          <p>This is not hypothetical. A controlled red-team exercise saw McKinsey's internal AI platform compromised by an autonomous agent that gained broad system access in under two hours. In September 2025, the first publicly documented AI-orchestrated cyberattack used a manipulated coding agent to target around 30 organisations worldwide, financial institutions among them. With non-human identities now outnumbering humans roughly 50-to-1 inside enterprises and shadow-AI breaches averaging $4.63M, the consensus among defenders is stark: a single well-crafted injection can convert your most trusted digital worker into an attacker's instrument.</p>
+        </div>
+      </div>
+
+      <div class="threat reveal">
+        <div class="idx">02</div>
+        <div>
+          <div class="severity"><span>Severity</span><span class="bars"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
+          <h3>Regulatory &amp; compliance complexity</h3>
+          <p>The rulebook is hardening fast and fragmenting at the same time. From <strong>2 August 2026</strong>, the EU AI Act's obligations for high-risk systems become enforceable — and credit scoring and creditworthiness assessment fall squarely in that category. Article 9 demands ongoing, evidence-based risk management across the lifecycle; Article 13 requires that deployers be able to understand and interpret a system's output, ruling out opaque "black-box" agents. Banks must run conformity assessments, stand up quality-management systems and register high-risk systems before deployment, while reconciling all of it with existing regimes such as DORA, the Capital Requirements Regulation and PSD2.</p>
+          <p>Meanwhile the global map is splintering. The US has tilted toward a minimally burdensome federal posture, with an executive order establishing a task force to challenge state AI laws even as states like California and Texas advance their own. The result is regulatory divergence that forces globally active firms to build parallel compliance architectures — and invites regulatory arbitrage. Tellingly, regulators are also shifting from rewarding the <em>presence</em> of controls to demanding demonstrable <em>effectiveness</em>.</p>
+        </div>
+      </div>
+
+      <div class="threat reveal">
+        <div class="idx">03</div>
+        <div>
+          <div class="severity"><span>Severity</span><span class="bars"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
+          <h3>Data privacy &amp; third-party exposure</h3>
+          <p>Agents are hungry for context, and context in banking is personal data. Feeding customer PII into general-purpose public model APIs is, for most tier-one institutions, a non-starter — which is why serious deployments insist on private-cloud, on-premises or air-gapped environments where data never leaves the institution's perimeter. The risk compounds with reliance on external vendors: as agentic stacks lean on third-party platforms and models, data-leakage and operational-resilience exposure grows, and the locus of accountability blurs across the value chain.</p>
+        </div>
+      </div>
+
+      <div class="threat reveal">
+        <div class="idx">04</div>
+        <div>
+          <div class="severity"><span>Severity</span><span class="bars"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+          <h3>Bias, fairness &amp; explainability</h3>
+          <p>When an agent participates in lending or pricing, embedded bias becomes a legal and ethical liability, not just a technical flaw. Poor data quality, unrepresentative training signals and unmonitored drift can produce discriminatory outcomes — the very risk that leads regulators to classify credit decisioning as high-risk in the first place. The harder demand is explainability: institutions must be able to justify <em>every action an agent takes</em>, not merely its final output, and reconstruct a reasoning chain a supervisor — and an examiner — can follow. Continuous fairness monitoring and bias testing move from nice-to-have to obligatory.</p>
+        </div>
+      </div>
+
+      <div class="threat reveal">
+        <div class="idx">05</div>
+        <div>
+          <div class="severity"><span>Severity</span><span class="bars"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+          <h3>Operational dependency &amp; concentration risk</h3>
+          <p>Autonomy breeds reliance. As agents take over core workflows, the institution's ability to function manually atrophies — and a model failure, drift or outage can cascade through interconnected processes faster than humans can intervene. Two structural problems sharpen this. First, most banks still run core systems built 20–40 years ago that were never designed for API-driven, real-time agent interaction, with data scattered across siloed front-, middle- and back-office systems. Second, concentration: if much of the market depends on a handful of model providers and agent platforms, a single vendor's failure becomes a systemic event.</p>
+          <div class="callout">
+            <span class="ct">The newest frontier — agentic commerce</span>
+            As AI agents begin to <em>shop and pay</em> on customers' behalf — via initiatives like Mastercard's Agent Pay and Visa's Intelligent Commerce — fraud teams face a control gap. Detection models trained on human signals (typing cadence, dwell time, navigation hesitation) simply don't apply to agent traffic. Institutions now have to treat agent activity as a distinct identity class with its own thresholds, and resolve unsettled questions of delegated authority, authentication and dispute handling before the volume arrives.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GOVERNANCE -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">§ 04 — Holding Both Truths</span>
+      <h2>What disciplined adoption actually <em>looks like</em>.</h2>
+    </div>
+    <div class="read">
+      <p class="reveal">The institutions getting this right are not choosing between speed and safety; they are engineering governance <em>into</em> the agent from the start. The emerging playbook — echoed across regulators, security researchers and the platforms building for regulated industries — converges on a short list of non-negotiables.</p>
+    </div>
+
+    <ul class="checklist reveal">
+      <li><span class="mk">01</span><span><b>An agent registry &amp; identity</b>Maintain an "agentic asset list": every agent uniquely identified, with its capabilities and granted permissions recorded — the foundation for proving to a regulator that the system operates lawfully.</span></li>
+      <li><span class="mk">02</span><span><b>Least privilege &amp; rapid revocation</b>Zero-trust, scoped permissions, and the ability to instantly revoke an agent's authority. An always-on agent with standing access to "the keys to the kingdom" is the core risk to design out.</span></li>
+      <li><span class="mk">03</span><span><b>Human-in-the-loop on exceptions</b>Let agents run the routine and escalate the consequential. Keep meaningful human judgment on the decisions that carry real financial, legal or customer impact.</span></li>
+      <li><span class="mk">04</span><span><b>Comprehensive logging &amp; explainability</b>Trace every action, not just outputs, so reasoning chains can be reconstructed for supervisors and examiners — directly answering the EU AI Act's interpretability demands.</span></li>
+      <li><span class="mk">05</span><span><b>Prompt-injection defences by design</b>Treat all external content — emails, documents, web pages — as untrusted input. Validate and filter every data source the agent ingests, and sandbox tool execution.</span></li>
+      <li><span class="mk">06</span><span><b>Accountable ownership</b>Name a senior owner — a Chief AI Officer or equivalent — and ensure the second and third lines of defence actually oversee agentic systems rather than rubber-stamping them.</span></li>
+    </ul>
+
+    <div class="read">
+      <p class="reveal">The IMF makes an elegant point worth ending on: by embedding safeguards such as provenance verification and policy-based access control directly into the code, institutions can turn regulation "from a constraint into a practical, system-level enabler." Governance-by-design isn't a tax on agentic AI. Done properly, it is the thing that lets you deploy it at all.</p>
+
+      <p class="reveal"><strong>The verdict for 2026 is not whether to adopt, but how fast and how carefully.</strong> The value is real and already booked on balance sheets — in compressed AML investigations, halved loan-processing times, millisecond fraud interdiction and double-digit cost reductions. So is the exposure — in autonomous-insider attacks, hardening and fragmenting regulation, privacy and concentration risk, and a fraud frontier our existing controls were never built to see. The institutions that will lead the next decade are the ones treating these as a single problem: capturing the upside precisely because they have engineered the discipline to contain the downside.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section class="sources">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Sources &amp; Further Reading</div>
+      <p style="max-width:60ch;margin-top:1.2rem;color:var(--ink-soft);">Figures and developments in this report are drawn from the following organisations and publications. All content above is summarised and paraphrased; follow the links for primary detail.</p>
+    </div>
+    <div class="src-grid reveal">
+      <a href="https://www.mckinsey.com/industries/financial-services/our-insights/global-banking-annual-review" target="_blank" rel="noopener"><b>McKinsey &amp; Company</b>Global Banking Annual Review &amp; banking's agentic-AI opportunity</a>
+      <a href="https://www.lloydsbankinggroup.com/insights/2026-the-year-of-agentic-ai-and-a-new-era-for-finance.html" target="_blank" rel="noopener"><b>Lloyds Banking Group</b>2026: The year of agentic AI</a>
+      <a href="https://www.fisglobal.com/about-us/media-room/press-release/2026/fis-brings-agentic-ai-to-banking-with-anthropic-starting-with-financial-crimes" target="_blank" rel="noopener"><b>FIS &amp; Anthropic</b>Financial Crimes AI Agent — AML in minutes</a>
+      <a href="https://www.elibrary.imf.org/view/journals/068/2026/004/article-A001-en.xml" target="_blank" rel="noopener"><b>IMF</b>How agentic AI will reshape payments (2026 Note)</a>
+      <a href="https://www.hoganlovells.com/en/publications/ai-regulation-in-financial-services-navigating-the-eu-ai-act-in-a-layered-regulatory-landscape" target="_blank" rel="noopener"><b>Hogan Lovells</b>AI regulation in financial services &amp; the EU AI Act</a>
+      <a href="https://www.artificialintelligence-news.com/news/agentic-ais-governance-challenges-under-the-eu-ai-act-in-2026/" target="_blank" rel="noopener"><b>AI News</b>Agentic AI governance under the EU AI Act</a>
+      <a href="https://www.vectra.ai/topics/agentic-ai-security" target="_blank" rel="noopener"><b>Vectra AI</b>Agentic AI security: threats &amp; frameworks (OWASP, lethal trifecta)</a>
+      <a href="https://bvp.com/atlas/securing-ai-agents-the-defining-cybersecurity-challenge-of-2026" target="_blank" rel="noopener"><b>Bessemer Venture Partners</b>Securing AI agents — the defining 2026 challenge</a>
+      <a href="https://www.finextra.com/blogposting/30920/agentic-ai-in-payments-in-2026-whats-real-whats-pilot-and-whats-still-hype" target="_blank" rel="noopener"><b>Finextra</b>Agentic AI in payments: real, pilot, or hype</a>
+      <a href="https://www.trustsphere.ai/post/agentic-commerce-and-the-new-fraud-frontier-when-ai-agents-buy-on-your-behalf" target="_blank" rel="noopener"><b>TrustSphere</b>Agentic commerce &amp; the new fraud frontier</a>
+      <a href="https://hbr.org/sponsored/2025/12/6-cybersecurity-predictions-for-the-ai-economy-in-2026" target="_blank" rel="noopener"><b>HBR / Palo Alto Networks</b>Cybersecurity predictions for the AI economy</a>
+      <a href="https://www.bankingexchange.com/news-feed/item/10560-mckinsey-reports-banks-are-poised-to-gain-most-from-agentic-ai" target="_blank" rel="noopener"><b>Banking Exchange</b>Why banks are poised to gain most from agentic AI</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="col">
+      <h5>The Agentic Ledger</h5>
+      <p>A field report on the autonomous systems quietly rewiring the financial system — written to be cloned, edited, and published. Make it your own.</p>
+    </div>
+    <div class="col meta">
+      Field Report · Vol. 01<br>
+      Finance · Banking · Payments<br>
+      Published June 2026<br>
+      <span id="year"></span> · Hosted on GitHub Pages
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="disc">
+      This article is an educational overview synthesised from publicly available industry research and reporting; all third-party content is paraphrased and credited under "Sources." Figures are estimates and projections from the cited organisations and may change. Nothing here is financial, legal, security or investment advice. Replace the byline, nameplate and colophon with your own before publishing.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // reading progress
+  var bar=document.getElementById('progress');
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    var pct=max>0?(h.scrollTop||document.body.scrollTop)/max*100:0;
+    bar.style.width=pct+'%';
+  }
+  document.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+
+  // entrance animation on load
+  window.addEventListener('load',function(){
+    document.querySelectorAll('.enter').forEach(function(el){el.classList.add('enter-go');});
+  });
+
+  // reveal on scroll
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+      });
+    },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+  }
+
+  // duplicate ticker for seamless loop
+  var tt=document.getElementById('tt');
+  if(tt){tt.innerHTML+=tt.innerHTML;}
+
+  // year
+  document.getElementById('year').textContent='© '+new Date().getFullYear();
+</script>
+</body>
+</html>
